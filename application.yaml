@@ -6,17 +6,15 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: https://github.com/zonex5/library-argocd.git
+    repoURL: git@github.com:zonex5/library-argocd.git
     targetRevision: HEAD
     path: dev
   destination:
     server: https://kubernetes.default.svc
     namespace: ms
-
   syncPolicy:
     syncOptions:
-      - CreateNamespace=true
-
+    - CreateNamespace=true
     automated:
-      selfHealth: true
+      selfHeal: true
       prune: true
