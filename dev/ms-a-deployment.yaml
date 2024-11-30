@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: ms-a
-          image: localhost:5000/ms-argocd-a:v2
+          image: localhost:5000/ms-argocd-a:v3
           imagePullPolicy: Always
           ports:
             - containerPort: 8080
