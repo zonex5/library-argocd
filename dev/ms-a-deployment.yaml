@@ -1,4 +1,3 @@
-
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -16,7 +15,7 @@ spec:
     spec:
       containers:
         - name: ms-a
-          image: localhost:5000/ms-argocd-a:v1
+          image: localhost:5000/ms-argocd-a:v2
           imagePullPolicy: Always
           ports:
             - containerPort: 8080
