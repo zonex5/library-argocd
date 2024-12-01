@@ -1,0 +1,49 @@
+# service-library-deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: library-service
+  namespace: ms
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: library-service
+  template:
+    metadata:
+      labels:
+        app: library-service
+    spec:
+      containers:
+        - name: library-service
+          image: localhost:5000/library-service:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8080
+          env:
+            - name: SPRING_DATASOURCE_URL
+              value: jdbc:postgresql://postgres-library-svc.postgres.svc.cluster.local:5432/db_library
+            - name: SPRING_DATASOURCE_USERNAME
+              value: postgres
+            - name: SPRING_DATASOURCE_PASSWORD
+              value: postgres
+            - name: SPRING_RABBITMQ_HOST
+              value: rabbitmq-svc.rabbitmq.svc.cluster.local
+            - name: SPRING_RABBITMQ_USERNAME
+              value: user
+            - name: SPRING_RABBITMQ_PASSWORD
+              value: user
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: library-service
+  namespace: ms
+spec:
+  type: NodePort
+  ports:
+    - port: 80
+      targetPort: 8080
+      nodePort: 30081
+  selector:
+    app: library-service
