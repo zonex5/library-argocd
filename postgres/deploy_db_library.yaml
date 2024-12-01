@@ -1,0 +1,84 @@
+# Deployment for postgres-library
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: postgres-library
+  namespace: postgres
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: postgres-library
+  template:
+    metadata:
+      labels:
+        app: postgres-library
+    spec:
+      containers:
+        - name: postgres
+          image: postgres:16.4-alpine3.20
+          env:
+            - name: POSTGRES_USER
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-secret
+                  key: POSTGRES_USER
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-secret
+                  key: POSTGRES_PASSWORD
+            - name: POSTGRES_DB
+              value: db_library
+          volumeMounts:
+            - name: postgres-data
+              mountPath: /var/lib/postgresql/data
+            - name: init-scripts
+              mountPath: /docker-entrypoint-initdb.d
+              readOnly: true
+          resources:
+            requests:
+              memory: "512Mi"
+              cpu: "250m"
+            limits:
+              memory: "1Gi"
+              cpu: "500m"
+      volumes:
+        - name: postgres-data
+          persistentVolumeClaim:
+            claimName: postgres-library-pvc
+        - name: init-scripts
+          configMap:
+            name: postgres-init-scripts-library
+
+---
+# PVC for postgres-library
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: postgres-library-pvc
+  namespace: postgres
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+
+---
+#Service for connection to postgres
+apiVersion: v1
+kind: Service
+metadata:
+  name: postgres-library-svc
+  namespace: postgres
+spec:
+  type: NodePort
+  selector:
+    app: postgres-library
+  ports:
+    - protocol: TCP
+      port: 5432
+      targetPort: 5432
+      nodePort: 30032
+      
