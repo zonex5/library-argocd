@@ -14,7 +14,7 @@ spec:
     namespace: ms
   syncPolicy:
     syncOptions:
-    - CreateNamespace=true
+    - CreateNamespace=false
     automated:
       selfHeal: true
       prune: true

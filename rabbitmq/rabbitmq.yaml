@@ -3,9 +3,9 @@ kind: Namespace
 metadata:
   name: rabbitmq
   labels:
-    istio-injection: enabled
----    
+    istio-injection: disabled
 
+---
 apiVersion: v1
 kind: ConfigMap
 metadata:
@@ -16,7 +16,6 @@ data:
     [rabbitmq_management].
 
 ---
-
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -52,7 +51,6 @@ spec:
           name: rabbitmq-config
 
 ---
-
 apiVersion: v1
 kind: Service
 metadata:

@@ -3,4 +3,4 @@ kind: Namespace
 metadata:
   name: postgres
   labels:
-    istio-injection: enabled
+    istio-injection: disabled
