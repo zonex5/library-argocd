@@ -6,7 +6,7 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: git@github.com:zonex5/library-argocd.git
+    repoURL: https://github.com/zonex5/library-argocd.git
     targetRevision: HEAD
     path: rabbitmq
   destination:
