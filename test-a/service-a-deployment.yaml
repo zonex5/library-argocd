@@ -5,7 +5,7 @@ metadata:
   name: service-a
   namespace: ms
 spec:
-  replicas: 2
+  replicas: 6
   selector:
     matchLabels:
       app: service-a
