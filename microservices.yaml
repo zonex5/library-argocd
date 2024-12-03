@@ -15,6 +15,7 @@ spec:
   syncPolicy:
     syncOptions:
     - CreateNamespace=false
+    - ApplyOutOfSyncOnly=true
     automated:
-      selfHeal: true
+      selfHeal: false
       prune: true
