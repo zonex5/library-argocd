@@ -22,7 +22,7 @@ metadata:
   name: rabbitmq
   namespace: rabbitmq
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       app: rabbitmq
