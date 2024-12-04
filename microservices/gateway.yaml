@@ -29,8 +29,6 @@ spec:
     - match:
         - uri:
             prefix: /books
-        - uri:
-            prefix: /authors
       route:
         - destination:
             host: book-service.ms.svc.cluster.local
