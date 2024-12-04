@@ -45,6 +45,13 @@ spec:
         volumeMounts:
         - name: config-volume
           mountPath: /etc/rabbitmq
+        resources:
+          requests:
+            memory: "256Mi"
+            cpu: "250m"
+          limits:
+            memory: "380Mi"
+            cpu: "500m"
       volumes:
       - name: config-volume
         configMap:
