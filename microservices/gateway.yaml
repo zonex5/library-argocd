@@ -1,4 +1,3 @@
-# gateway.yaml
 apiVersion: networking.istio.io/v1beta1
 kind: Gateway
 metadata:
@@ -14,11 +13,12 @@ spec:
         protocol: HTTP
       hosts:
         - "*"
+
 ---
 apiVersion: networking.istio.io/v1beta1
 kind: VirtualService
 metadata:
-  name: book-service
+  name: ms-services
   namespace: ms
 spec:
   hosts:
@@ -29,8 +29,28 @@ spec:
     - match:
         - uri:
             prefix: /books
+        - uri:
+            prefix: /authors
       route:
         - destination:
             host: book-service.ms.svc.cluster.local
+            port:
+              number: 80
+    - match:
+        - uri:
+            prefix: /libraries
+        - uri:
+            prefix: /stock
+      route:
+        - destination:
+            host: library-service.ms.svc.cluster.local
+            port:
+              number: 80
+    - match:
+        - uri:
+            prefix: /search
+      route:
+        - destination:
+            host: search-service.ms.svc.cluster.local
             port:
               number: 80
