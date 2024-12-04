@@ -1,0 +1,82 @@
+# gateway.yaml
+apiVersion: networking.istio.io/v1beta1
+kind: Gateway
+metadata:
+  name: ms-gateway
+  namespace: ms
+spec:
+  selector:
+    istio: ingressgateway
+  servers:
+    - port:
+        number: 80
+        name: http
+        protocol: HTTP
+      hosts:
+        - "*"
+---
+apiVersion: networking.istio.io/v1beta1
+kind: VirtualService
+metadata:
+  name: book-service
+  namespace: ms
+spec:
+  hosts:
+    - "*"
+  gateways:
+    - ms-gateway
+  http:
+    - match:
+        - uri:
+            prefix: /books
+        - uri:
+            prefix: /authors
+      route:
+        - destination:
+            host: book-service.ms.svc.cluster.local
+            port:
+              number: 80
+
+---
+apiVersion: networking.istio.io/v1beta1
+kind: VirtualService
+metadata:
+  name: library-service
+  namespace: ms
+spec:
+  hosts:
+    - "*"
+  gateways:
+    - ms-gateway
+  http:
+    - match:
+        - uri:
+            prefix: /libraries
+        - uri:
+            prefix: /stock
+      route:
+        - destination:
+            host: library-service.ms.svc.cluster.local
+            port:
+              number: 80
+
+---
+apiVersion: networking.istio.io/v1beta1
+kind: VirtualService
+metadata:
+  name: search-service
+  namespace: ms
+spec:
+  hosts:
+    - "*"
+  gateways:
+    - ms-gateway
+  http:
+    - match:
+        - uri:
+            prefix: /search
+      route:
+        - destination:
+            host: search-service.ms.svc.cluster.local
+            port:
+              number: 80
