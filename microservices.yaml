@@ -12,6 +12,7 @@ spec:
   destination:
     server: https://kubernetes.default.svc
     namespace: ms
+  revisionHistoryLimit: 2  
   syncPolicy:
     syncOptions:
     - CreateNamespace=false
