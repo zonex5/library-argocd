@@ -5,7 +5,7 @@ metadata:
   name: book-service
   namespace: ms
 spec:
-  replicas: 6
+  replicas: 3
   selector:
     matchLabels:
       app: book-service
