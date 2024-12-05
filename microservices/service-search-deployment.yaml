@@ -21,12 +21,9 @@ spec:
           ports:
             - containerPort: 8080
           resources:
-            requests:
-              memory: "128Mi"
-              cpu: "250m"
             limits:
               memory: "256Mi"
-              cpu: "750m"
+              cpu: "500m"
 
 ---
 apiVersion: v1
