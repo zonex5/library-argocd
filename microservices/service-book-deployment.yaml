@@ -29,8 +29,8 @@ spec:
               value: postgres
           resources:
             limits:
-              memory: "256Mi"
-              cpu: "1000m"
+              memory: "128Mi"
+              cpu: "10m"
 ---
 apiVersion: v1
 kind: Service
