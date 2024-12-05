@@ -28,9 +28,12 @@ spec:
             - name: SPRING_DATASOURCE_PASSWORD
               value: postgres
           resources:
-            limits:
+            requests:
+              cpu: "20m"
               memory: "128Mi"
-              cpu: "10m"
+            limits:
+              cpu: "100m"
+              memory: "256Mi"
 ---
 apiVersion: v1
 kind: Service

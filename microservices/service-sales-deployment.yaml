@@ -34,9 +34,12 @@ spec:
             - name: SPRING_RABBITMQ_PASSWORD
               value: user
           resources:
-            limits:
+            requests:
+              cpu: "20m"
               memory: "128Mi"
-              cpu: "10m"
+            limits:
+              cpu: "100m"
+              memory: "256Mi"
 ---
 apiVersion: v1
 kind: Service
