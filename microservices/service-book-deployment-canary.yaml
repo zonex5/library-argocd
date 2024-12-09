@@ -1,19 +1,19 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: book-service-rc1
+  name: book-service-canary
   namespace: ms
 spec:
   replicas: 1
   selector:
     matchLabels:
       app: book-service
-      version: rc1
+      version: canary
   template:
     metadata:
       labels:
         app: book-service
-        version: rc1
+        version: canary
     spec:
       containers:
         - name: book-service

@@ -1,23 +1,23 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: book-service-canary
+  name: book-service-stable
   namespace: ms
 spec:
   replicas: 1
   selector:
     matchLabels:
       app: book-service
-      version: canary
+      version: stable
   template:
     metadata:
       labels:
         app: book-service
-        version: canary
+        version: stable
     spec:
       containers:
         - name: book-service
-          image: localhost:5000/book-service:rc1
+          image: localhost:5000/book-service:stable
           imagePullPolicy: Always
           ports:
             - containerPort: 8080
