@@ -1,22 +1,23 @@
-# service-book-deployment.yaml
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: book-service
+  name: book-service-rc1
   namespace: ms
 spec:
   replicas: 1
   selector:
     matchLabels:
       app: book-service
+      version: rc1
   template:
     metadata:
       labels:
         app: book-service
+        version: rc1
     spec:
       containers:
         - name: book-service
-          image: localhost:5000/book-service:latest
+          image: localhost:5000/book-service:rc1
           imagePullPolicy: Always
           ports:
             - containerPort: 8080
@@ -34,17 +35,3 @@ spec:
             limits:
               cpu: "500m"
               memory: "256Mi"
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: book-service
-  namespace: ms
-spec:
-  type: NodePort
-  ports:
-    - port: 80
-      targetPort: 8080
-      nodePort: 30080
-  selector:
-    app: book-service

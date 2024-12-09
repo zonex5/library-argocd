@@ -1,0 +1,39 @@
+apiVersion: networking.istio.io/v1beta1
+kind: DestinationRule
+metadata:
+  name: book-service
+  namespace: ms
+spec:
+  host: book-service.ms.svc.cluster.local
+  subsets:
+    - name: stable
+      labels:
+        version: stable
+    - name: rc1
+      labels:
+        version: rc1
+
+---
+apiVersion: networking.istio.io/v1beta1
+kind: VirtualService
+metadata:
+  name: book-service
+  namespace: ms
+spec:
+  hosts:
+    - book-service
+  http:
+    - route:
+        - destination:
+            host: book-service.ms.svc.cluster.local
+            subset: stable
+            port:
+              number: 8080
+          weight: 50
+        - destination:
+            host: book-service.ms.svc.cluster.local
+            subset: rc1
+            port:
+              number: 8080
+          weight: 50
+
