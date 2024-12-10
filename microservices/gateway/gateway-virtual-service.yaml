@@ -18,21 +18,20 @@ spec:
         - destination:
             host: book-service.ms.svc.cluster.local
             subset: stable
-          weight: 90
+          weight: 50
         - destination:
             host: book-service.ms.svc.cluster.local
             subset: canary
-          weight: 10
-      headers:
-        request:
-          add:
-            X-User-Session: "{request.headers['user-agent'] | request.headers['cookie']}"
-      fault:
-        headerHashPolicy:
-          headerName: X-User-Session
+          weight: 50
     - match:
         - uri:
             prefix: /libraries
+      route:
+        - destination:
+            host: library-service.ms.svc.cluster.local
+            port:
+              number: 80
+    - match:
         - uri:
             prefix: /stock
       route:
