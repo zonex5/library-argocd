@@ -12,36 +12,27 @@ spec:
     - match:
         - uri:
             prefix: /books
-      route:
-        - destination:
-            host: book-service.ms.svc.cluster.local
-            subset: stable
-          weight: 50
-        - destination:
-            host: book-service.ms.svc.cluster.local
-            subset: canary
-          weight: 50
-    - match:
         - uri:
             prefix: /authors
       route:
         - destination:
             host: book-service.ms.svc.cluster.local
             subset: stable
-          weight: 50
+          weight: 90
         - destination:
             host: book-service.ms.svc.cluster.local
             subset: canary
-          weight: 50
+          weight: 10
+      headers:
+        request:
+          add:
+            X-User-Session: "{request.headers['user-agent'] | request.headers['cookie']}"
+      fault:
+        headerHashPolicy:
+          headerName: X-User-Session
     - match:
         - uri:
             prefix: /libraries
-      route:
-        - destination:
-            host: library-service.ms.svc.cluster.local
-            port:
-              number: 80
-    - match:
         - uri:
             prefix: /stock
       route:
