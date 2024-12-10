@@ -9,6 +9,7 @@ spec:
   gateways:
     - ms-gateway
   http:
+    # book service
     - match:
         - uri:
             prefix: /books
@@ -23,15 +24,10 @@ spec:
             host: book-service.ms.svc.cluster.local
             subset: canary
           weight: 50
+    # library service
     - match:
         - uri:
             prefix: /libraries
-      route:
-        - destination:
-            host: library-service.ms.svc.cluster.local
-            port:
-              number: 80
-    - match:
         - uri:
             prefix: /stock
       route:
@@ -39,11 +35,21 @@ spec:
             host: library-service.ms.svc.cluster.local
             port:
               number: 80
+    # search service
     - match:
         - uri:
             prefix: /search
       route:
         - destination:
             host: search-service.ms.svc.cluster.local
+            port:
+              number: 80
+    # sales service
+    - match:
+        - uri:
+            prefix: /sales
+      route:
+        - destination:
+            host: sales-service.ms.svc.cluster.local
             port:
               number: 80
