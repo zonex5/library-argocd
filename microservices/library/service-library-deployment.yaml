@@ -35,10 +35,9 @@ spec:
               value: user
           resources:
             requests:
-              cpu: "250m"
               memory: "128Mi"
             limits:
-              cpu: "300m"
+              cpu: "200m"
               memory: "256Mi"
 ---
 apiVersion: v1
