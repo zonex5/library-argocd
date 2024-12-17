@@ -8,9 +8,9 @@ spec:
     istio: ingressgateway
   servers:
     - port:
-        number: 443
-        name: https
-        protocol: HTTPS
+        number: 80
+        name: http
+        protocol: HTTP
       hosts:
         - "*"
 
@@ -36,7 +36,7 @@ spec:
         - destination:
             host: argocd-server.argocd.svc.cluster.local
             port:
-              number: 443
+              number: 80
     - match:
         - uri:
             exact: /argocd
@@ -46,7 +46,7 @@ spec:
         - destination:
             host: argocd-server.argocd.svc.cluster.local
             port:
-              number: 443
+              number: 80
     # test-a service
     - match:
         - uri:
