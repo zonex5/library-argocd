@@ -26,21 +26,12 @@ spec:
   gateways:
     - ms-gateway
   http:
-    # argocd-server
-    - match:
-        - uri:
-            prefix: /argocd
-      rewrite:
-        uri: /
-      route:
-        - destination:
-            host: argocd-server.argocd.svc.cluster.local
-            port:
-              number: 443
     # test-a service
     - match:
         - uri:
             prefix: /testa
+      rewrite:
+        uri: /
       route:
         - destination:
             host: service-a.ms.svc.cluster.local
