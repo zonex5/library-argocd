@@ -29,7 +29,17 @@ spec:
     # test-a service
     - match:
         - uri:
-            regex: /testa/
+            prefix: /testa/
+      rewrite:
+        uri: /
+      route:
+        - destination:
+            host: service-a.ms.svc.cluster.local
+            port:
+              number: 8080
+    - match:
+        - uri:
+            exact: /testa
       rewrite:
         uri: /
       route:
