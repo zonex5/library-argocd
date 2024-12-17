@@ -26,6 +26,27 @@ spec:
   gateways:
     - ms-gateway
   http:
+    # ArgoCD
+    - match:
+        - uri:
+            prefix: /argocd/
+      rewrite:
+        uri: /
+      route:
+        - destination:
+            host: argocd-server.argocd.svc.cluster.local
+            port:
+              number: 8080
+    - match:
+        - uri:
+            exact: /argocd
+      rewrite:
+        uri: /
+      route:
+        - destination:
+            host: argocd-server.argocd.svc.cluster.local
+            port:
+              number: 8080
     # test-a service
     - match:
         - uri:
