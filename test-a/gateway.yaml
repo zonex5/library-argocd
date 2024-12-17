@@ -29,9 +29,9 @@ spec:
     # test-a service
     - match:
         - uri:
-            prefix: /testa
+            regex: ^/testa(/.*)$
       rewrite:
-        uri: /
+        uri: "$1"
       route:
         - destination:
             host: service-a.ms.svc.cluster.local
