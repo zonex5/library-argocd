@@ -36,7 +36,7 @@ spec:
         - destination:
             host: argocd-server.argocd.svc.cluster.local
             port:
-              number: 8080
+              number: 80
     - match:
         - uri:
             exact: /argocd
@@ -46,7 +46,7 @@ spec:
         - destination:
             host: argocd-server.argocd.svc.cluster.local
             port:
-              number: 8080
+              number: 80
     # test-a service
     - match:
         - uri:
