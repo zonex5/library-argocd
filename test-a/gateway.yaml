@@ -1,0 +1,46 @@
+apiVersion: networking.istio.io/v1beta1
+kind: Gateway
+metadata:
+  name: ms-gateway
+  namespace: ms
+spec:
+  selector:
+    istio: ingressgateway
+  servers:
+    - port:
+        number: 80
+        name: http
+        protocol: HTTP
+      hosts:
+        - "*"
+
+---
+apiVersion: networking.istio.io/v1beta1
+kind: VirtualService
+metadata:
+  name: ms-services
+  namespace: ms
+spec:
+  hosts:
+    - "*"
+  gateways:
+    - ms-gateway
+  http:
+    # argocd-server
+    - match:
+        - uri:
+            prefix: /argocd
+      route:
+        - destination:
+            host: argocd-server.argocd.svc.cluster.local
+            port:
+              number: 80
+    # test-a service
+    - match:
+        - uri:
+            prefix: /testa
+      route:
+        - destination:
+            host: service-a.ms.svc.cluster.local
+            port:
+              number: 80
