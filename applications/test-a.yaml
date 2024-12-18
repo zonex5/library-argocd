@@ -1,9 +1,17 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: ms
+  labels:
+    istio-injection: enabled
+
+---
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
   name: test-a
 spec:
-  project: default
+  project: my-microservices
   source:
     repoURL: https://github.com/zonex5/library-argocd.git
     targetRevision: HEAD
