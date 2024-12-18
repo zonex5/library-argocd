@@ -16,6 +16,6 @@ spec:
       containers:
       - name: service-a
         image: europe-southwest1-docker.pkg.dev/library-project-444319/personal-registry/service-a:latest
-        imagePullPolicy: IfNotPresent
+        imagePullPolicy: Always
         ports:
         - containerPort: 8080

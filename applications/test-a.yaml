@@ -2,7 +2,6 @@ apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
   name: test-a
-  namespace: argocd
 spec:
   project: default
   source:
@@ -15,7 +14,7 @@ spec:
   syncPolicy:
     syncOptions:
     - CreateNamespace=false
-    - ApplyOutOfSyncOnly=true
+    - ApplyOutOfSyncOnly=false
     automated:
       selfHeal: true
       prune: true
