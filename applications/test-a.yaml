@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: ms-application
+  name: test-a
   namespace: argocd
 spec:
   project: default
