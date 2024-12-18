@@ -1,15 +1,8 @@
-apiVersion: v1
-kind: Namespace
-metadata:
-  name: ms
-  labels:
-    istio-injection: enabled
-
----
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
   name: test-a
+  namespace: argocd
 spec:
   project: my-microservices
   source:
