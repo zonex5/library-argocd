@@ -1,0 +1,21 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: test-a
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/zonex5/library-argocd.git
+    targetRevision: HEAD
+    path: test-a-local
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: ms
+  syncPolicy:
+    syncOptions:
+    - CreateNamespace=false
+    - ApplyOutOfSyncOnly=false
+    automated:
+      selfHeal: true
+      prune: true
