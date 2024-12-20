@@ -8,7 +8,7 @@ spec:
   source:
     repoURL: https://github.com/zonex5/library-argocd.git
     targetRevision: HEAD
-    path: microservices
+    path: microservices-cloud
   destination:
     server: https://kubernetes.default.svc
     namespace: ms
