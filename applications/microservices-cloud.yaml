@@ -1,21 +1,22 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: test-a
+  name: microservices-application
   namespace: argocd
 spec:
   project: default
   source:
     repoURL: https://github.com/zonex5/library-argocd.git
     targetRevision: HEAD
-    path: test-a
+    path: microservices-cloud
   destination:
     server: https://kubernetes.default.svc
     namespace: ms
+  revisionHistoryLimit: 2  
   syncPolicy:
     syncOptions:
     - CreateNamespace=false
-    - ApplyOutOfSyncOnly=false
+    - ApplyOutOfSyncOnly=true
     automated:
       selfHeal: true
       prune: true
